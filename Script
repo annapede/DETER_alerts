@@ -1,0 +1,31 @@
+##### Code to download, open and transform INPE's Deter notifications from shapefiles to sf objects
+
+library(rgdal)
+library(downloader)
+library(sf)
+
+#timeline you wish to download
+ano<-list(2007,2008,2009,2010,2011,2012,2013,2014)
+month<-list(01,02,03,04,05,06,07,08,09,10,11,12)
+
+
+for (year in ano){
+  for (mes in month){
+    if (mes < 10){
+    url <- sprintf("http://www.dpi.inpe.br/obt/deter/dados/%s/Deter_%s0%s_shp.zip",year,year,mes)
+    err <- try(download(url, dest="dataset.zip", mode="wb"))
+    if (class(err) == "try-error") next
+    unzip ("dataset.zip", exdir = "./")
+    shp_data = st_read(dir(pattern = "\\.shp$"))
+    assign(x=sprintf("deter_%s0%s",year,mes),shp_data)
+    } else {
+    url <- sprintf("http://www.dpi.inpe.br/obt/deter/dados/%s/Deter_%s%s_shp.zip",year,year,mes)
+    err <- try(download(url, dest="dataset.zip", mode="wb"))
+    if (class(err) == "try-error") next
+    unzip ("dataset.zip", exdir = "./")
+    shp_data = st_read(dir(pattern = "\\.shp$"))
+    assign(x=sprintf("deter_%s%s",year,mes),shp_data)
+    }
+    file.remove("dataset.zip",dir(pattern = "\\.shp$"),dir(pattern = "\\.dbf$"),dir(pattern = "\\.shx$"),dir(pattern = "\\.sbn$"),dir(pattern = "\\.sbx$"))
+  }
+}
