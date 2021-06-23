@@ -16,16 +16,22 @@ for (year in ano){
     err <- try(download(url, dest="dataset.zip", mode="wb"))
     if (class(err) == "try-error") next
     unzip ("dataset.zip", exdir = "./")
-    shp_data = st_read(dir(pattern = "\\.shp$"))
+    file.remove(dir(pattern = "ALERTA"),dir(pattern = "NUVEM"),dir(pattern = "Fogo"),dir(pattern = "INDICIO"))
+    shp_data = st_read(dir(pattern = sprintf("\\.shp$",mes)))
     assign(x=sprintf("deter_%s0%s",year,mes),shp_data)
     } else {
     url <- sprintf("http://www.dpi.inpe.br/obt/deter/dados/%s/Deter_%s%s_shp.zip",year,year,mes)
     err <- try(download(url, dest="dataset.zip", mode="wb"))
     if (class(err) == "try-error") next
     unzip ("dataset.zip", exdir = "./")
-    shp_data = st_read(dir(pattern = "\\.shp$"))
+    file.remove(dir(pattern = "ALERTA"),dir(pattern = "NUVEM"),dir(pattern = "Fogo"),dir(pattern = "INDICIO"))
+    shp_data = st_read(dir(pattern = sprintf("\\.shp$",mes)))
     assign(x=sprintf("deter_%s%s",year,mes),shp_data)
     }
-    file.remove("dataset.zip",dir(pattern = "\\.shp$"),dir(pattern = "\\.dbf$"),dir(pattern = "\\.shx$"),dir(pattern = "\\.sbn$"),dir(pattern = "\\.sbx$"))
+    file.remove("dataset.zip",dir(pattern = "\\.shp$"),dir(pattern = "\\.dbf$"),dir(pattern = "\\.shx$"),dir(pattern = "\\.sbn$"),dir(pattern = "\\.sbx$"),dir(pattern = "\\.txt$"))
   }
 }
+
+
+
+
