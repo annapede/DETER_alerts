@@ -11,7 +11,7 @@ month<-list(01,02,03,04,05,06,07,08,09,10,11,12)
 #Set folder to save files temporarily
 setwd("~/XXXX/DETER_Data")
 
-for (year in ano){y
+for (year in ano){
   for (mes in month){
     if (mes < 10){
     url <- sprintf("http://www.dpi.inpe.br/obt/deter/dados/%s/Deter_%s0%s_shp.zip",year,year,mes)
