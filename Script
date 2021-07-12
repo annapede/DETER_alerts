@@ -37,7 +37,7 @@ for (year in ano){
   }
 }
 
-save(deter_alerts,file="deter_alerts_2007_2014.RData")
+save(alerts_df,file="deter_alerts_2007_2014.RData")
 
 
 
